@@ -1,8 +1,8 @@
 'use strict'
 require('dotenv').config();
+var program = require('commander');
 const fetch = require('node-fetch');
 const FormData = require('form-data');
-var program = require('commander');
  
 program
   .version('0.0.1')
@@ -10,6 +10,9 @@ program
   .option('-a, --args [value]', 'Text args of the command (optional)')
   .option('-C, --channel [value]', 'ID of channel to run command in')
   .parse(process.argv);
+
+if(process.env.SLACK_TOKEN == undefined) throw new Error('SLACK_TOKEN env required');
+
 
 class SlackCommand{
 	constructor(conf){

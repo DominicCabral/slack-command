@@ -1,0 +1,24 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: slack-command
+spec:
+  schedule: "15 13 * * 1-5"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: slack-command
+            image: netrasys/slack-command
+            env:
+            - name: SLACK_TOKEN
+              value: "XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX-XXXXXXX"  
+            args:
+            - node
+            - index.js
+            - -c
+            - /uberconference
+            - -C 
+            - C02LDD7DW
+          restartPolicy: OnFailure
